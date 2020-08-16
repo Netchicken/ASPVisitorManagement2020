@@ -3,6 +3,32 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <h1 class="display-4">@ViewBag.Welcome</h1>
+    <p> @ViewBag.NewVisitor.FirstName  @ViewBag.NewVisitor.LastName   to  Learn about  @ViewData["Welcome2"]   <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="row">
+
+        @foreach (var item in (IEnumerable<string>)ViewData["Conditions"])
+        {
+            if (@item.ToString().Contains("Heading"))
+
+            {
+                <div class="form-group col-md-12">
+                    <h3> @item.ToString().Replace("Heading", "")</h3>
+                </div>
+
+
+            }
+            else
+            {
+
+                <div class="form-group col-md-3 text-left">@item.ToString()</div>
+
+            }
+        }
+
+        </div>
+
+
+
+
+    </div>
