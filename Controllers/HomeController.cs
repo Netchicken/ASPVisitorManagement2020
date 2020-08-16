@@ -1,5 +1,5 @@
-﻿using ASPVisitorManagement2020.Models;
-using Microsoft.AspNetCore.Hosting;
+﻿using ASPVisitorManagement2020.Business;
+using ASPVisitorManagement2020.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
@@ -9,18 +9,15 @@ namespace ASPVisitorManagement2020.Controllers
 {
     public class HomeController : Controller
     {
+                private readonly ILogger<HomeController> _logger;
+
+        private ITextFileOperations _textFileOperations;
 
 
-
-
-
-        private readonly ILogger<HomeController> _logger;
-        private readonly IWebHostEnvironment _webHostEnvironment;
-
-        public HomeController(ILogger<HomeController> logger, IWebHostEnvironment webHostEnvironment)
+        public HomeController(ILogger<HomeController> logger, ITextFileOperations textFileOperations)
         {
             _logger = logger;
-            _webHostEnvironment = webHostEnvironment;
+            _textFileOperations = textFileOperations;
         }
 
         public IActionResult Index()
@@ -39,12 +36,8 @@ namespace ASPVisitorManagement2020.Controllers
             ViewData["Welcome2"] = "This is another welcome";
 
 
-            //===============COA==============
-
-            string webRootPath = _webHostEnvironment.WebRootPath;
-            FileInfo filePath = new FileInfo(Path.Combine(webRootPath, "COA.txt"));
-            string[] lines = System.IO.File.ReadAllLines(filePath.ToString());
-            ViewData["Conditions"] = lines;
+          
+            ViewData["Conditions"] = _textFileOperations.LoadConditionsForAcceptanceText();
 
 
 

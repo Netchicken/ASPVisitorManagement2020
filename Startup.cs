@@ -12,6 +12,7 @@ using ASPVisitorManagement2020.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ASPVisitorManagement2020.Business;
 
 namespace ASPVisitorManagement2020
 {
@@ -28,6 +29,11 @@ namespace ASPVisitorManagement2020
         //tel the program what is existing in our project
         public void ConfigureServices(IServiceCollection services)
         {
+
+            //tells the program that tfo exists!
+            services.AddSingleton<ITextFileOperations, TextFileOperations>();
+
+
             //tell the program we have a DB for identity using sql server
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
