@@ -52,6 +52,7 @@ namespace ASPVisitorManagement2020
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.
+                
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ASPVisitorManagement2020.Data;
 using ASPVisitorManagement2020.Models;
+using ASPVisitorManagement2020.DTO;
 
 namespace ASPVisitorManagement2020.Controllers
 {
@@ -22,7 +23,17 @@ namespace ASPVisitorManagement2020.Controllers
         // GET: StaffNames
         public async Task<IActionResult> Index()
         {
-            return View(await _context.StaffNames.ToListAsync());
+             var Staffnames = _context.StaffNames.Select(s => new StaffNamesDTO()
+            {
+                Id = s.Id,
+                Name = s.Name,
+                Department = s.Department,
+                VisitorCount = s.VisitorCount
+            }).ToListAsync();
+
+
+            return View(await Staffnames);
+
         }
 
         // GET: StaffNames/Details/5
